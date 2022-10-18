@@ -44,7 +44,7 @@
 //	/// <summary>
 //	/// Awake this instance.
 //	/// </summary>
-//	void Awake ()
+//	void Awake()
 //	{
 //		path = GetComponentInParent<Pathway>();
 //		Debug.Assert(path != null, "Wrong initial parameters");
@@ -93,7 +93,7 @@
 
 //			while (endlessWave == true)
 //			{
-//				GameObject prefab = randomEnemiesList[Random.Range (0, randomEnemiesList.Count)];
+//				GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
 //				// Create enemy
 //				GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
 //				newEnemy.name = prefab.name;
@@ -115,7 +115,7 @@
 //				// If enemy prefab not specified - spawn random enemy
 //				if (prefab == null && randomEnemiesList.Count > 0)
 //				{
-//					prefab = randomEnemiesList[Random.Range (0, randomEnemiesList.Count)];
+//					prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
 //				}
 //				if (prefab == null)
 //				{
