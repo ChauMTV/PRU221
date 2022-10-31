@@ -24,13 +24,14 @@ public class EnemyState : MonoBehaviour
     }
 
     public EnemyTransact[] specificTransact;
-
+    protected Animator anim;
     protected EnemyBehaviour enemyBehaviour;
     // Start is called before the first frame update
 
     public virtual void Awake()
     {
         enemyBehaviour = GetComponent<EnemyBehaviour>();
+        anim = GetComponentInParent<Animator>();
     }
 
     public virtual void OnStateEnter(EnemyState previousState, EnemyState newState)
