@@ -594,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 203526916}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WaveInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 281632027}
   - component: {fileID: 281632029}
   - component: {fileID: 281632028}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 283527568}
   - component: {fileID: 283527570}
   - component: {fileID: 283527569}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1503,7 +1503,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 3.06
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1560,7 +1560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 841393988}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoldInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1780,7 +1780,7 @@ GameObject:
   - component: {fileID: 970321595}
   - component: {fileID: 970321594}
   - component: {fileID: 970321596}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2179,7 +2179,7 @@ GameObject:
   - component: {fileID: 1154131470}
   - component: {fileID: 1154131472}
   - component: {fileID: 1154131471}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2253,7 +2253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1176297028}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2294,7 +2294,7 @@ GameObject:
   - component: {fileID: 1252089970}
   - component: {fileID: 1252089972}
   - component: {fileID: 1252089971}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2374,7 +2374,7 @@ GameObject:
   - component: {fileID: 1270520593}
   - component: {fileID: 1270520595}
   - component: {fileID: 1270520594}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2932,9 +2932,9 @@ RectTransform:
   m_Father: {fileID: 1035023456}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -25}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 25, y: -25}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1353622310
@@ -3229,7 +3229,7 @@ GameObject:
   - component: {fileID: 1520622290}
   - component: {fileID: 1520622292}
   - component: {fileID: 1520622291}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3306,7 +3306,7 @@ GameObject:
   - component: {fileID: 1543833960}
   - component: {fileID: 1543833959}
   - component: {fileID: 1543833958}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3342,7 +3342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -3443,13 +3443,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b02a40dfd52deb4aad87b9df00dfe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 2
-  CapturedPoint: 1
+  gold: 50
+  CapturedPoint: 10
   enemyList:
-  - {fileID: 2082663653140972057, guid: 41e16109567f1554898e109c6f36d73d, type: 3}
-  - {fileID: 2082663653140972057, guid: 41e16109567f1554898e109c6f36d73d, type: 3}
-  - {fileID: 2082663653140972057, guid: 41e16109567f1554898e109c6f36d73d, type: 3}
-  - {fileID: 2082663653140972057, guid: 41e16109567f1554898e109c6f36d73d, type: 3}
+  - {fileID: 2474614818453701031, guid: 697d768481973c849b3ea261c5de9387, type: 3}
+  - {fileID: 2954942597511847754, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
+  - {fileID: 6565791800175677518, guid: 7cc63d80694e472489424401baae88b2, type: 3}
+  - {fileID: 1348055386013386247, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
 --- !u!114 &1579585988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3610,7 +3610,7 @@ GameObject:
   - component: {fileID: 1699252924}
   - component: {fileID: 1699252923}
   - component: {fileID: 1699252925}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3685,7 +3685,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1701950617}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4569,7 +4569,7 @@ GameObject:
   - component: {fileID: 2034283258}
   - component: {fileID: 2034283260}
   - component: {fileID: 2034283259}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4643,7 +4643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2125179779}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DefeatedAttempt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
