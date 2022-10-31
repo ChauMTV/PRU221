@@ -23,6 +23,12 @@ public class PauseMenu : MonoBehaviour
     public void Home(int sceneID)
     {
         Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
+
+    public void Restart(int sceneID)
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
 }
