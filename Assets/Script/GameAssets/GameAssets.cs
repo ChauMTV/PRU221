@@ -15,5 +15,17 @@ public class GameAssets : MonoBehaviour
     }
     public Transform fireBall;
     public GameObject towerPlacement;
-    public GameObject tower;
+    public GameObject stoneTower;
+    public GameObject fireTower;
+    public GameObject meteorTower;
+    public GameObject clayTower;
+    public GameObject[] selectorArr= new GameObject[4];
+
+    private void Awake()
+    {
+        selectorArr[0] = stoneTower;
+        selectorArr[1] = clayTower;
+        selectorArr[2] = fireTower;
+        selectorArr[3] = meteorTower;
+    }
 }
