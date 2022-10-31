@@ -46,4 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBall: {fileID: 8634212744555303354, guid: 9a4943fd1b4826d48983f99181c65d6b, type: 3}
   towerPlacement: {fileID: 8668527406090514953, guid: 0bcb7fc925baa2944a35840d4b295bff, type: 3}
-  tower: {fileID: 638623675381695961, guid: c610fd285499bc84fb9d87a0014bfce1, type: 3}
+  stoneTower: {fileID: 4673053078899639928, guid: 9c6d5c2a2b37ff84a9ec96575f5d48e9, type: 3}
+  fireTower: {fileID: 5136072374154711951, guid: d743adbc95bcdc04ab9a5536b2b1ee51, type: 3}
+  meteorTower: {fileID: 2548056979400064229, guid: f345bb395268dbc498a6fc6a772243c6, type: 3}
+  clayTower: {fileID: 2869123836515809824, guid: 4c284403f1b645447aee5137fb4a0787, type: 3}

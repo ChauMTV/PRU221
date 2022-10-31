@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - TowerPlacement
+  - TowerWheel
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Water
   - UI
   - towerPlacementLayer
-  - 
+  - towerWheelLayer
   - 
   - 
   - 
@@ -44,4 +45,10 @@ TagManager:
     locked: 0
   - name: ProjectTile
     uniqueID: 2214070909
+    locked: 0
+  - name: Wheel
+    uniqueID: 2891748511
+    locked: 0
+  - name: TowerHead
+    uniqueID: 3339545945
     locked: 0
