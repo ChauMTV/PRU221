@@ -177,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144776494313199484}
+  - component: {fileID: 750073068690917362}
   m_Layer: 0
   m_Name: MeteorTower
   m_TagString: Untagged
@@ -200,9 +201,24 @@ Transform:
   - {fileID: 2714353571182514000}
   - {fileID: 3242204141189648278}
   - {fileID: 4518349459031269748}
+  - {fileID: 7505671991032213120}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &750073068690917362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548056979400064229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9cf365d09df4af46b21104bed8cd0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerType: 0
+  towerWheel: {fileID: 1678230824042781016, guid: ae7dbd3e3d897b14291109b5f6e2b074, type: 3}
 --- !u!1 &6869079700959739803
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +303,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9084036813843428860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7505671991032213120}
+  - component: {fileID: 551818688105020076}
+  m_Layer: 0
+  m_Name: ProjectileShootFromPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7505671991032213120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084036813843428860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: 1.29, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1144776494313199484}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551818688105020076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084036813843428860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee195f1b7aa5ea4a8d101e4b48ff6bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9115394238137792178
 GameObject:
   m_ObjectHideFlags: 0

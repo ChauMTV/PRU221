@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyState previousState;
     private EnemyState currentState;
 
+
     // Start is called before the first frame update
      void Awake()
     {

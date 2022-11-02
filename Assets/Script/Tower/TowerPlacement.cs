@@ -48,7 +48,6 @@ public class TowerPlacement : MonoBehaviour
     public void SpawnTower(int i, int tIndex)
     {
         GameObject child = towerPlacement.transform.GetChild(i).gameObject;
-        Debug.Log(child.transform.position.x);
         Vector3 spawnPosition = child.transform.position;
         Instantiate(GameAssets.i.selectorArr[tIndex], spawnPosition, Quaternion.identity);
         child.SetActive(false);

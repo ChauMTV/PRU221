@@ -24,6 +24,7 @@ public class PointSpawner : MonoBehaviour
     private float counter;
     //Buffer active spawned enemies
     private List<GameObject> activeEnemies = new List<GameObject>();
+    public static List<EnemyNavigation> enemyBehaviours = new List<EnemyNavigation>();
     private bool finished = false;
 
 
@@ -58,9 +59,27 @@ public class PointSpawner : MonoBehaviour
 
     }
 
-
-
-
+    public static EnemyNavigation GetClosestEnemy(Vector3 position, float maxRange)
+    {
+        EnemyNavigation closestEnemy = null;
+        foreach(EnemyNavigation enemy in enemyBehaviours)
+        {
+            if(Vector3.Distance(position,enemy.transform.position) <= maxRange)
+            {
+                if(closestEnemy == null)
+                {
+                    closestEnemy = enemy;
+                }
+                else
+                {
+                    if(Vector3.Distance(position,enemy.transform.position)< Vector3.Distance(position, closestEnemy.transform.position)){
+                        closestEnemy = enemy;
+                    }
+                }
+            }
+        }
+        return closestEnemy;
+    }
     private IEnumerator RunWave(int waveIdx)
     {
 
@@ -113,7 +132,7 @@ public class PointSpawner : MonoBehaviour
                 EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
                 enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
                 activeEnemies.Add(newEnemy);
-
+                enemyBehaviours.Add(enemyNav);
                 yield return new WaitForSeconds(unitSpawnDelay);
             }
         }
