@@ -67,6 +67,24 @@ public class EnemyPath : EnemyState
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (path == null)
+        {
+            // If I have no path - try to find it
+            path = FindObjectOfType<Pathway>();
+            Debug.Assert(path, "Have no path");
+        }
+        if (destination == null)
+        {
+            // Get next waypoint from my path
+            destination = path.GetNearestWaypoint(transform.position);
+        }
+        // Set destination for navigation agent
+        enemyBehaviour.enemyNav.destination = destination.transform.position;
+        // Start moving
+        enemyBehaviour.enemyNav.move = true;
+        enemyBehaviour.enemyNav.turn = true;
+
+
         if (destination != null)
         {
             //if destination reached

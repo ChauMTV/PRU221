@@ -19,9 +19,7 @@ public class EnemyNavigation : MonoBehaviour
     public Vector2 velocity;
     [HideInInspector]
     public Animator anim;
-    public HealthBar healthBar;
-    private HealthSystem healthSystem;
-    public GameObject damagePoint;
+
     // Position on last frame
     private Vector2 prevPosition;
 
@@ -32,9 +30,6 @@ public class EnemyNavigation : MonoBehaviour
     }
     void Start()
     {
-        HealthSystem healthSystem = new HealthSystem(100);
-        healthBar.Setup(healthSystem);
-        Debug.Log(healthSystem.GetHealth());
     }
 
     // Update is called once per frame
@@ -103,14 +98,5 @@ public class EnemyNavigation : MonoBehaviour
     public void LookAt(Transform target)
     {
         SetSpriteDirection(target.position - transform.position);
-    }
-
-    public void Damage(int damageAmount)
-    {
-        healthSystem.Damage(damageAmount);
-        if (healthSystem.GetHealth() == 0)
-        {
-            Destroy(transform.gameObject);
-        }
     }
 }

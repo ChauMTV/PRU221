@@ -1,26 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     [HideInInspector]
     public EnemyNavigation enemyNav;
-
+    [HideInInspector]
+    public EnemyPath enemyPath;
     public EnemyState defaultState;
-
+    public GameObject EndPoint;
     private List<EnemyState> enemyState = new List<EnemyState>();
 
     private EnemyState previousState;
     private EnemyState currentState;
 
-
     // Start is called before the first frame update
-     void Awake()
+    void Awake()
     {
-        if(enemyNav == null)
+        if (enemyNav == null)
         {
             enemyNav = GetComponent<EnemyNavigation>();
+        }
+        if (enemyPath == null)
+        {
+            enemyPath = GetComponent<EnemyPath>();
         }
     }
     void Start()
@@ -105,14 +111,18 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// Raises the disable event.
+    /// Raises the disable event. chuyen cai nay vao enemy stats
     /// </summary>
-    void OnDisable()
+    public void releaseMySelfOnDisable()
     {
         // Disable AI on AiBehavior disabling
-        DisableAllStates();
+        //DisableAllStates(); cua ngta
+
+        //chuyen vo cai enemy stats thi bo comment
+        //if(enemy_hp<=0)// cua thang dung~
+        objectPool.Release(gameObject);
     }
-  
+
 
     /// <summary>
     /// Turn off all AI states components.
@@ -123,6 +133,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             enState.enabled = false;
         }
+    }
+    /// <summary>
+    /// chuyen cai nay vai enemy stats
+    /// </summary>
+    ObjectPool<GameObject> objectPool;
+    public void SetParentObjectPool(ObjectPool<GameObject> objectPool)
+    {
+        this.objectPool = objectPool;
     }
 
     /// <summary>
@@ -148,7 +166,23 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentState.OnStateEnter(previousState, currentState);
     }
+    public void DetectEndPoint()
+    {
+        if (Vector3.Distance(transform.position, EndPoint.transform.position) <= 0.5f)
+        {
+            //original
+            releaseMySelfOnDisable();
+            enemyPath.path = null;
+            enemyPath.destination = null;
+        }
 
+    }
+    private void Update()
+    {
+        DetectEndPoint();
+        Debug.Log("Navigation: " + enemyNav.destination);
+        Debug.Log("destination :" + enemyPath.destination);
+    }
     /// <summary>
     /// Raises the trigger event.
     /// </summary>

@@ -7,19 +7,19 @@ using UnityEngine;
 /// </summary>
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     public static Transform[] points;
-    void Awake()
-    {
-        points = new Transform[transform.childCount];
+    //void Awake()
+    //{
+    //    points = new Transform[transform.childCount];
 
-        for (int i = 0; i < points.Length; i++)
-        {
-            points[i] = transform.GetChild(i);
-        }
+    //    for (int i = 0; i < points.Length; i++)
+    //    {
+    //        points[i] = transform.GetChild(i);
+    //    }
 
-        //As you can see here the order of the children is the array they are formed in
-    }
+    //    //As you can see here the order of the children is the array they are formed in
+    //}
 
 
 
