@@ -11,6 +11,10 @@ public class EnemyNavigation : MonoBehaviour
     // Can turning
     [HideInInspector]
     public bool turn = true;
+
+    public HealthBar healthBar;
+    private HealthSystem healthSystem;
+    public GameObject damagePoint;
     // Destination position
     [HideInInspector]
     public Vector2 destination;
@@ -30,6 +34,9 @@ public class EnemyNavigation : MonoBehaviour
     }
     void Start()
     {
+        healthSystem healthSystem = new healthSystem(100);
+        healthBar.Setup(healthSystem);
+        Debug.Log(healthSystem.GetHealth());
     }
 
     // Update is called once per frame
@@ -98,5 +105,14 @@ public class EnemyNavigation : MonoBehaviour
     public void LookAt(Transform target)
     {
         SetSpriteDirection(target.position - transform.position);
+    }
+
+    public void Damage(int damageAmount)
+    {
+        healthSystem.Damage(damageAmount);
+        if (healthSystem.GetHealth() == 0)
+        {
+            Destroy(transform.gameObject);
+        }
     }
 }

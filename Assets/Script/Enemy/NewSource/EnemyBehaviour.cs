@@ -66,6 +66,13 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Raises the disable event
+    /// </summary>
+     void OnDisable()
+    {
+        DisableAllStates();
+    }
 
     public void ChangeState(EnemyState state)
     {
