@@ -34,7 +34,7 @@ public class EnemyNavigation : MonoBehaviour
     }
     void Start()
     {
-        healthSystem healthSystem = new healthSystem(100);
+        HealthSystem healthSystem = new HealthSystem(100);
         healthBar.Setup(healthSystem);
         Debug.Log(healthSystem.GetHealth());
     }
