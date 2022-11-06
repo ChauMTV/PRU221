@@ -24,7 +24,7 @@ public class PointSpawner : MonoBehaviour
     [HideInInspector]
     public List<GameObject> randomEnemiesList = new List<GameObject>();
     public ObjectPool<GameObject> _pool;
-
+    public static List<EnemyNavigation> enemyBehaviours = new List<EnemyNavigation>();
     private GameObject newEnemy;
     private Pathway path;
     private float counter;
@@ -68,84 +68,106 @@ public class PointSpawner : MonoBehaviour
 
 
 
+    public static EnemyNavigation GetClosestEnemy(Vector3 position, float maxRange)
+
+    {
+
+        EnemyNavigation closestEnemy = null;
+        foreach (EnemyNavigation enemy in enemyBehaviours)
+        {
+            if (Vector3.Distance(position, enemy.transform.position) <= maxRange)
+            {
+                if (closestEnemy == null)
+                {
+                    closestEnemy = enemy;
+                }
+                else
+                {
+                    if (Vector3.Distance(position, enemy.transform.position) < Vector3.Distance(position, closestEnemy.transform.position))
+                    {
+                        closestEnemy = enemy;
+                    }
+                }
+            }
+        }
+        return closestEnemy;
+    }
+
+
+
     private IEnumerator RunWave(int waveIdx)
     {
 
 
-        //  if (waves.Count > waveIdx)
-        //  {
-        //      yield return new WaitForSeconds(waves[waveIdx].delayedBeforeWave);
-        //      GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
-        //      _pool = new ObjectPool<GameObject>(() => { return Instantiate(prefab); }, enemy =>
-        //      {
-        //          enemy.SetActive(true);
-        //      }, enemy =>
-        //      {
-        //          enemy.SetActive(false);
+        if (waves.Count > waveIdx)
+        {
+            yield return new WaitForSeconds(waves[waveIdx].delayedBeforeWave);
+            GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+            _pool = new ObjectPool<GameObject>(() => { return Instantiate(prefab); }, enemy =>
+            {
+                enemy.SetActive(true);
+            }, enemy =>
+            {
+                enemy.SetActive(false);
+                enemy.GetComponent<EnemyPath>().path = null;
+                enemy.GetComponent<EnemyPath>().destination = null;
+            }, enemy =>
+            {
+                Destroy(enemy);
+            }, false, 5, maxPoolSize
+      );
+            while (endlesswave && _pool.CountActive < maxPoolSize)
+            {
+                newEnemy = _pool.Get();
 
-        //      }, enemy =>
-        //      {
-        //          Destroy(enemy);
-        //      }, false, 5, maxPoolSize
-        //);
-        //      while (endlesswave && _pool.CountActive < maxPoolSize)
-        //      {
-        //          newEnemy = _pool.Get();
+                newEnemy.GetComponent<EnemyBehaviour>().SetParentObjectPool(_pool);
+                newEnemy.transform.position = transform.position;
+                Debug.Log("active: " + _pool.CountActive);
+                newEnemy.GetComponent<EnemyPath>().path = path;
+                EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
+                enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
+                activeEnemies.Add(newEnemy);
 
+                yield return new WaitForSeconds(unitSpawnDelay);
+            }
 
-        //          Debug.Log("active: " + _pool.CountActive);
-        //          //if (newEnemy != null)
-        //          //{
-        //          //    newEnemy.transform.position = transform.position;
-        //          //    newEnemy.SetActive(true);
-        //          //}
-        //          //Debug.Log("spawned");
-        //          //newEnemy.name = prefab.name;
-        //          //newEnemy.GetComponent<EnemyPath>().path = path;
-        //          //EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
-        //          //enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
-        //          //activeEnemies.Add(newEnemy);
+            foreach (GameObject enemy in waves[waveIdx].enemies)
+            {
+                prefab = null;
+                prefab = enemy;
+                // If enemy prefab not specified - spawn random enemy
+                if (prefab == null && randomEnemiesList.Count > 0)
+                {
+                    prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+                }
+                if (prefab == null)
+                {
+                    Debug.LogError("Have no enemy prefab. Please specify enemies in Level Manager or in Spawn Point");
+                }
+                // Create enemy
+                GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
+                newEnemy.name = prefab.name;
+                // Set pathway
+                newEnemy.GetComponent<EnemyPath>().path = path;
+                EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
+                enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
 
-        //          yield return new WaitForSeconds(unitSpawnDelay);
-        //      }
+                // Add enemy to list
+                activeEnemies.Add(newEnemy);
+                // Wait for delay before next enemy run
+                yield return new WaitForSeconds(unitSpawnDelay);
+            }
+            if (waveIdx + 1 == waves.Count)
+            {
+                finished = true;
+                endlesswave = true;
 
-        //      foreach (GameObject enemy in waves[waveIdx].enemies)
-        //      {
-        //          prefab = null;
-        //          prefab = enemy;
-        //          // If enemy prefab not specified - spawn random enemy
-        //          if (prefab == null && randomEnemiesList.Count > 0)
-        //          {
-        //              prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
-        //          }
-        //          if (prefab == null)
-        //          {
-        //              Debug.LogError("Have no enemy prefab. Please specify enemies in Level Manager or in Spawn Point");
-        //          }
-        //          // Create enemy
-        //          GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
-        //          newEnemy.name = prefab.name;
-        //          // Set pathway
-        //          newEnemy.GetComponent<EnemyPath>().path = path;
-        //          EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
-        //          enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
+            }
+        }
+        if (endlesswave == true)
+        {
 
-        //          // Add enemy to list
-        //          activeEnemies.Add(newEnemy);
-        //          // Wait for delay before next enemy run
-        //          yield return new WaitForSeconds(unitSpawnDelay);
-        //      }
-        //      if (waveIdx + 1 == waves.Count)
-        //      {
-        //          finished = true;
-        //          endlesswave = true;
-
-        //      }
-        //  }
-        //  if (endlesswave == true)
-        //  {
-        //GameObject prefab = ;
-        _pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
+            _pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
         {
             enemy.SetActive(true);
 
@@ -159,38 +181,29 @@ public class PointSpawner : MonoBehaviour
             Destroy(enemy);
         }, false, 5, maxPoolSize
   );
-        while (endlesswave == true)
-        {
-            if (_pool.CountActive < maxPoolSize)
+            while (endlesswave == true)
             {
-                newEnemy = _pool.Get();
+                if (_pool.CountActive < maxPoolSize)
+                {
+                    newEnemy = _pool.Get();
 
-                newEnemy.GetComponent<EnemyBehaviour>().SetParentObjectPool(_pool);
-                newEnemy.transform.position = transform.position;
-                Debug.Log("active: " + _pool.CountActive);
-                //newEnemy.name = prefab.name;
-                Debug.Log("dang de");
-                ///
-                //Destroy(newEnemy.GetComponent<EnemyPath>());
-                //Destroy(newEnemy.GetComponent<EnemyNavigation>());
-                //Destroy(newEnemy.GetComponent<EnemyState>());
-                //newEnemy.AddComponent<EnemyPath>();
-                //newEnemy.AddComponent<EnemyNavigation>();
-                //newEnemy.AddComponent<EnemyState>();
-                ///
-                
-                newEnemy.GetComponent<EnemyPath>().path = path;
-                ///////////////////////////////////////////////////////////////
-                //newEnemy.GetComponent<EnemyPath>().destination = null;
-                EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
-                ////////////////////////////////////////////////////////////////
-                enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
-                //activeEnemies.Add(newEnemy);
+                    newEnemy.GetComponent<EnemyBehaviour>().SetParentObjectPool(_pool);
+                    newEnemy.transform.position = transform.position;
+                    Debug.Log("active: " + _pool.CountActive);
+                    Debug.Log("dang de");
+
+                    newEnemy.GetComponent<EnemyPath>().path = path;
+                    ///////////////////////////////////////////////////////////////
+                    //newEnemy.GetComponent<EnemyPath>().destination = null;
+                    EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
+                    ////////////////////////////////////////////////////////////////
+                    enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
+                    //activeEnemies.Add(newEnemy);
+                }
+                yield return new WaitForSeconds(unitSpawnDelay);
             }
-            yield return new WaitForSeconds(unitSpawnDelay);
         }
     }
-    //}
 
     private void UnitDie(GameObject obj, string param)
     {
