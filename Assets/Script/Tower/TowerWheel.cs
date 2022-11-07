@@ -13,6 +13,8 @@ public class TowerWheel : MonoBehaviour
     [SerializeField]
     TowerPlacement towerPlacement;
 
+    public int preTowerType = -1;
+
 
     public bool towerChanged = false;
     void Update()
@@ -23,6 +25,7 @@ public class TowerWheel : MonoBehaviour
             towerIndex = FindChildIndex();
             if (towerIndex != -1)
             {
+                preTowerType = towerIndex;
                 towerPlacement.SpawnTower(towerPlacement.preTowerIndex, towerIndex);
                 towerPlacement.buyTower = false;
                 towerChanged = false;

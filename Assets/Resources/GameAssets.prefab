@@ -45,8 +45,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireBall: {fileID: 8634212744555303354, guid: 9a4943fd1b4826d48983f99181c65d6b, type: 3}
+  stoneB: {fileID: 527161705806023510, guid: 9418a319066daf948afe3e96c1969fa9, type: 3}
+  clayB: {fileID: 527161705806023510, guid: 448a98d90582d9247ae61e765b8b2a00, type: 3}
+  meteorB: {fileID: 527161705806023510, guid: b5b56cde94fa5fb4987b1562c0e5d4da, type: 3}
   towerPlacement: {fileID: 8668527406090514953, guid: 0bcb7fc925baa2944a35840d4b295bff, type: 3}
   stoneTower: {fileID: 4673053078899639928, guid: 9c6d5c2a2b37ff84a9ec96575f5d48e9, type: 3}
   fireTower: {fileID: 5136072374154711951, guid: d743adbc95bcdc04ab9a5536b2b1ee51, type: 3}
   meteorTower: {fileID: 2548056979400064229, guid: f345bb395268dbc498a6fc6a772243c6, type: 3}
   clayTower: {fileID: 2869123836515809824, guid: 4c284403f1b645447aee5137fb4a0787, type: 3}
+  selectorArr:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bulletArr:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemies:
+  - {fileID: 8227048056410774502, guid: 697d768481973c849b3ea261c5de9387, type: 3}
+  - {fileID: 1425158343882510794, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
+  - {fileID: 984615219606203122, guid: 7cc63d80694e472489424401baae88b2, type: 3}
+  - {fileID: 1348055386013386254, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
+  sDame: 20
+  cDame: 30
+  fDame: 45
+  mDame: 55
+  bulletDamage: 0a0000000c0000000f00000014000000
