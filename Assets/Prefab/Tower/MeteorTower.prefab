@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2714353571182514000}
   - component: {fileID: 6402041048258497415}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1403218785
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b07877e9930b0044fa158602b7b007ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3242204141189648278}
   - component: {fileID: 8942725022583008627}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 28 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1403218785
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b07877e9930b0044fa158602b7b007ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144776494313199484}
   - component: {fileID: 750073068690917362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeteorTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4518349459031269748}
   - component: {fileID: 994601070590173090}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7505671991032213120}
   - component: {fileID: 551818688105020076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ProjectileShootFromPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6141708942341674851}
   - component: {fileID: 6014133000643014435}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1403218785
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6fd959449a3175646b87aa486ed1e9a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
