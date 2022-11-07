@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
     private float shootTimer;
     [SerializeField]
     TowerWheel towerWheel;
-    ProjecTileShooting projecTileShooting;
+    public ProjecTileShooting projecTileShooting;
     private void Start()
     {
         towerType = GameObject.Find("TowerWheel").GetComponent<TowerWheel>().preTowerType;
@@ -36,7 +36,7 @@ public class Tower : MonoBehaviour
         if(shootTimer <= 0f)
         {
             shootTimer = shootTimerMax;
-            EnemyNavigation enemy = GetClosestEnemy();
+            GameObject enemy = GetClosestEnemy();
             if (enemy != null)
             {
                 projecTileShooting.Create(projectileShooting, enemy, towerType, GameAssets.i.bulletDamage[towerType]);
@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour
         }
 
     }
-    private EnemyNavigation GetClosestEnemy()
+    private GameObject GetClosestEnemy()
     {
         return PointSpawner.GetClosestEnemy(transform.position, range);
     }

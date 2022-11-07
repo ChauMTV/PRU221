@@ -19,11 +19,11 @@ public class PointSpawner : MonoBehaviour
     public bool endlesswave = false;
     [HideInInspector]
     public List<GameObject> randomEnemiesList = new List<GameObject>();
-
+    public static int enemyIndex;
     private Pathway path;
     private float counter;
     //Buffer active spawned enemies
-    private List<GameObject> activeEnemies = new List<GameObject>();
+    public static List<GameObject> activeEnemies = new List<GameObject>();
     public static List<EnemyNavigation> enemyBehaviours = new List<EnemyNavigation>();
     private bool finished = false;
 
@@ -59,10 +59,10 @@ public class PointSpawner : MonoBehaviour
 
     }
 
-    public static EnemyNavigation GetClosestEnemy(Vector3 position, float maxRange)
+    public static GameObject GetClosestEnemy(Vector3 position, float maxRange)
     {
-        EnemyNavigation closestEnemy = null;
-        foreach(EnemyNavigation enemy in enemyBehaviours)
+        GameObject closestEnemy = null;
+        foreach(GameObject enemy in activeEnemies)
         {
             if(Vector3.Distance(position,enemy.transform.position) <= maxRange)
             {
@@ -89,12 +89,14 @@ public class PointSpawner : MonoBehaviour
 
             foreach (GameObject enemy in waves[waveIdx].enemies)
             {
+
+                enemyIndex = Random.Range(0, randomEnemiesList.Count);
                 GameObject prefab = null;
                 prefab = enemy;
                 // If enemy prefab not specified - spawn random enemy
                 if (prefab == null && randomEnemiesList.Count > 0)
                 {
-                    prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+                    prefab = randomEnemiesList[enemyIndex];
                 }
                 if (prefab == null)
                 {
@@ -110,6 +112,7 @@ public class PointSpawner : MonoBehaviour
 
                 // Add enemy to list
                 activeEnemies.Add(newEnemy);
+                enemyBehaviours.Add(enemyNav);
                 // Wait for delay before next enemy run
                 yield return new WaitForSeconds(unitSpawnDelay);
             }
@@ -124,12 +127,13 @@ public class PointSpawner : MonoBehaviour
         {
             while (endlesswave == true)
             {
-                Debug.Log("spawned");
-                GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+                enemyIndex = Random.Range(0, randomEnemiesList.Count);
+                GameObject prefab = randomEnemiesList[enemyIndex];
                 GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
                 newEnemy.name = prefab.name;
                 newEnemy.GetComponent<EnemyPath>().path = path;
                 EnemyNavigation enemyNav = newEnemy.GetComponent<EnemyNavigation>();
+                enemyNav.enemyIndex = enemyIndex;
                 enemyNav.speed = Random.Range(enemyNav.speed * (1f - RandomSpeed), enemyNav.speed * (1f + RandomSpeed));
                 activeEnemies.Add(newEnemy);
                 enemyBehaviours.Add(enemyNav);

@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   towerWheel: {fileID: 1678230824042781016, guid: ae7dbd3e3d897b14291109b5f6e2b074, type: 3}
+  projecTileShooting: {fileID: 6444289695647281480}
 --- !u!1 &5705513988791762451
 GameObject:
   m_ObjectHideFlags: 0

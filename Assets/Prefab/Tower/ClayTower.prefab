@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   towerWheel: {fileID: 1678230824042781016, guid: ae7dbd3e3d897b14291109b5f6e2b074, type: 3}
+  projecTileShooting: {fileID: 542345978841301834}
 --- !u!1 &4830823526392094680
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,11 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee195f1b7aa5ea4a8d101e4b48ff6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy:
-  - {fileID: 8227048056410774502, guid: 697d768481973c849b3ea261c5de9387, type: 3}
-  - {fileID: 1425158343882510794, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
-  - {fileID: 984615219606203122, guid: 7cc63d80694e472489424401baae88b2, type: 3}
-  - {fileID: 1348055386013386254, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
 --- !u!1 &8808530123418507281
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class EnemyNavigation : MonoBehaviour
     public GameObject damagePoint;
     // Position on last frame
     private Vector2 prevPosition;
-
+    public int enemyIndex =-1;
     void OnEnable()
     {
         prevPosition= transform.position;
@@ -32,9 +33,10 @@ public class EnemyNavigation : MonoBehaviour
     }
     void Start()
     {
-        HealthSystem healthSystem = new HealthSystem(100);
+        transform.GetComponent<GameObject>();
+        enemyIndex = PointSpawner.enemyIndex;
+        healthSystem = new HealthSystem(100);
         healthBar.Setup(healthSystem);
-        Debug.Log(healthSystem.GetHealth());
     }
 
     // Update is called once per frame
@@ -111,6 +113,13 @@ public class EnemyNavigation : MonoBehaviour
         if (healthSystem.GetHealth() == 0)
         {
             Destroy(transform.gameObject);
+            PointSpawner.activeEnemies.Remove(transform.gameObject);
         }
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
 }
