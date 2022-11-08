@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1144776494313199484}
   - component: {fileID: 750073068690917362}
+  - component: {fileID: -22379074144106185}
   m_Layer: 9
   m_Name: MeteorTower
   m_TagString: Untagged
@@ -220,6 +221,19 @@ MonoBehaviour:
   towerType: 0
   towerWheel: {fileID: 1678230824042781016, guid: ae7dbd3e3d897b14291109b5f6e2b074, type: 3}
   projecTileShooting: {fileID: 551818688105020076}
+--- !u!114 &-22379074144106185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548056979400064229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c0b77410103e44db242d3a67433d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 120
 --- !u!1 &6869079700959739803
 GameObject:
   m_ObjectHideFlags: 0

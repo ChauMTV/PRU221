@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManage : MonoBehaviour
 {
-    public int gold = 0;
+    public int gold = 50;
 
     public int CapturedPoint = 10;
 

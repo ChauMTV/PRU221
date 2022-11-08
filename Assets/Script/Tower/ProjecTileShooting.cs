@@ -41,6 +41,10 @@ public class ProjecTileShooting : MonoBehaviour
                 Destroy(transform.gameObject);
             }
         }
+        if(enemy == null)
+        {
+            Destroy(transform.gameObject);
+        }
 
     }
 }

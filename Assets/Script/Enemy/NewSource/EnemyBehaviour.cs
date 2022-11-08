@@ -9,24 +9,25 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemyNavigation enemyNav;
     [HideInInspector]
     public EnemyPath enemyPath;
+
     public EnemyState defaultState;
 
     private List<EnemyState> enemyState = new List<EnemyState>();
-    public GameObject EndPoint;
+    //public GameObject EndPoint;
     private EnemyState previousState;
     private EnemyState currentState;
 
-    ObjectPool<GameObject> objectPool;
+    //ObjectPool<GameObject> objectPool;
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(enemyNav == null)
+        if (enemyNav == null)
         {
             enemyNav = GetComponent<EnemyNavigation>();
         }
-        if (enemyPath == null)
+        if(enemyPath == null)
         {
             enemyPath = GetComponent<EnemyPath>();
         }
@@ -120,45 +121,6 @@ public class EnemyBehaviour : MonoBehaviour
         // Disable AI on AiBehavior disabling
         DisableAllStates();
     }
-    #region
-    /// <summary>
-    /// using Object Pool for Releasing object
-    /// </summary>
-    public void releaseMySelfOnDisable()
-    {
-        // Disable AI on AiBehavior disabling
-        //DisableAllStates(); cua ngta
-
-        //chuyen vo cai enemy stats thi bo comment
-        //if(enemy_hp<=0)// cua thang dung~
-        objectPool.Release(gameObject);
-    }
-
-    public void SetParentObjectPool(ObjectPool<GameObject> objectPool)
-    {
-        this.objectPool = objectPool;
-    }
-
-    public void DetectEndPoint()
-    {
-        if (Vector3.Distance(transform.position, EndPoint.transform.position) <= 0.5f)
-        {
-            //original
-            releaseMySelfOnDisable();
-            enemyPath.path = null;
-            enemyPath.destination = null;
-        }
-
-    }
-    private void Update()
-    {
-        DetectEndPoint();
-        Debug.Log("Navigation: " + enemyNav.destination);
-        Debug.Log("destination :" + enemyPath.destination);
-    }
-
-    #endregion
-
 
 
     /// <summary>
@@ -179,6 +141,45 @@ public class EnemyBehaviour : MonoBehaviour
     {
         currentState.enabled = true;
     }
+
+    //#region
+    ///// <summary>
+    ///// using Object Pool for Releasing object
+    ///// </summary>
+    //public void releaseMySelfOnDisable()
+    //{
+    //    // Disable AI on AiBehavior disabling
+    //    //DisableAllStates(); cua ngta
+
+    //    //chuyen vo cai enemy stats thi bo comment
+    //    //if(enemy_hp<=0)// cua thang dung~
+    //    objectPool.Release(gameObject);
+    //}
+
+    //public void SetParentObjectPool(ObjectPool<GameObject> objectPool)
+    //{
+    //    this.objectPool = objectPool;
+    //}
+
+    //public void DetectEndPoint()
+    //{
+    //    if (Vector3.Distance(transform.position, EndPoint.transform.position) <= 0.5f)
+    //    {
+    //        //original
+    //        releaseMySelfOnDisable();
+    //        enemyPath.path = null;
+    //        enemyPath.destination = null;
+    //    }
+
+    //}
+    //private void Update()
+    //{
+    //    DetectEndPoint();
+    //    Debug.Log("Navigation: " + enemyNav.destination);
+    //    Debug.Log("destination :" + enemyPath.destination);
+    //}
+
+    //#endregion
 
     /// <summary>
     /// Send OnStateExit notification to previous state.

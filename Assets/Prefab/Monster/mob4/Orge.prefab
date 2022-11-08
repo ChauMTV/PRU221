@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 1348055386013386250}
   - component: {fileID: 1348055386013386249}
   - component: {fileID: 1348055386013386255}
+  - component: {fileID: 2026104350787691368}
   - component: {fileID: 1348055386013386254}
   - component: {fileID: 1348055386013386253}
   - component: {fileID: 1348055386013386252}
@@ -240,6 +241,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2026104350787691368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348055386013386247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c0b77410103e44db242d3a67433d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 0
 --- !u!114 &1348055386013386254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +275,7 @@ MonoBehaviour:
   healthBar: {fileID: 5412698354909345380}
   damagePoint: {fileID: 1348055386326052119}
   enemyIndex: -1
+  enemy: {fileID: 0}
 --- !u!114 &1348055386013386253
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -68,8 +68,8 @@ MonoBehaviour:
   - {fileID: 1425158343882510794, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
   - {fileID: 984615219606203122, guid: 7cc63d80694e472489424401baae88b2, type: 3}
   - {fileID: 1348055386013386254, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
-  sDame: 20
-  cDame: 30
-  fDame: 45
-  mDame: 55
+  sDame: 15
+  cDame: 20
+  fDame: 25
+  mDame: 30
   bulletDamage: 0a0000000c0000000f00000014000000

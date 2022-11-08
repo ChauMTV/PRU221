@@ -18,8 +18,8 @@ TagManager:
   - towerPlacementLayer
   - towerWheelLayer
   - Monster
-  - 
-  - 
+  - Tower
+  - HealthBar
   - 
   - 
   - 
@@ -45,12 +45,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Monster
+    uniqueID: 4165556609
+    locked: 0
   - name: ProjectTile
     uniqueID: 2214070909
+    locked: 0
+  - name: TowerHead
+    uniqueID: 3339545945
     locked: 0
   - name: Wheel
     uniqueID: 2891748511
     locked: 0
-  - name: TowerHead
-    uniqueID: 3339545945
+  - name: HealthBar
+    uniqueID: 1252037955
     locked: 0

@@ -21,7 +21,7 @@ public class Tower : MonoBehaviour
     private void Awake()
     {
         projectileShooting = transform.Find("ProjectileShootFromPosition").position;
-        range = 4f;
+        range = 2.5f;
         shootTimerMax = 1f;
     }
     private void Update()

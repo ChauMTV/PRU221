@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2353381959904578442, guid: f8a937b3aa7bc6749b4bd55d55943d2b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2353381959904578442, guid: f8a937b3aa7bc6749b4bd55d55943d2b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -956,7 +956,7 @@ Transform:
   m_Children:
   - {fileID: 387641335}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &811346841
 MonoBehaviour:
@@ -1241,7 +1241,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067346213}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1249,8 +1249,8 @@ Transform:
   - {fileID: 1628498962}
   - {fileID: 1414030487}
   - {fileID: 400035516}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 1467791506}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1067346215
 MonoBehaviour:
@@ -1322,10 +1322,16 @@ MonoBehaviour:
   - delayedBeforeWave: 0
     enemies:
     - {fileID: 0}
+  - delayedBeforeWave: 0
+    enemies:
+    - {fileID: 0}
+  - delayedBeforeWave: 0
+    enemies:
+    - {fileID: 0}
   endlesswave: 0
   randomEnemiesList: []
-  endlessWaveSpawnDelay: 5
-  maxPoolSize: 10
+  endlessWaveStartTimer: 6
+  maxPoolSize: 1
 --- !u!114 &1078037111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6be3e62f19c176448504bde89d8fa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: 01000000010000000200000005000000
+  enemies: 01000000
 --- !u!1 &1272050926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8432901983359954020, guid: c34824e4d27689647bb8a2d6771634cc, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8432901983359954020, guid: c34824e4d27689647bb8a2d6771634cc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1672,8 +1678,9 @@ Transform:
   - {fileID: 130486007}
   - {fileID: 712305746}
   - {fileID: 1008015443}
+  - {fileID: 1067346214}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1620159445
 PrefabInstance:
@@ -1704,7 +1711,7 @@ PrefabInstance:
       objectReference: {fileID: 915114225}
     - target: {fileID: 6696634641107505479, guid: ed462d9d4a584de41a002820f0bed874, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6696634641107505479, guid: ed462d9d4a584de41a002820f0bed874, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1873,9 +1880,15 @@ MonoBehaviour:
   - delayedBeforeWave: 0
     enemies:
     - {fileID: 0}
+  - delayedBeforeWave: 0
+    enemies:
+    - {fileID: 0}
+  - delayedBeforeWave: 0
+    enemies:
+    - {fileID: 0}
   endlesswave: 0
   randomEnemiesList: []
-  endlessWaveSpawnDelay: 5
+  endlessWaveStartTimer: 6
   maxPoolSize: 10
 --- !u!114 &1743528074
 MonoBehaviour:
@@ -1889,7 +1902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6be3e62f19c176448504bde89d8fa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: 01000000010000000200000005000000
+  enemies: 
 --- !u!1 &1817753728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +1994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7837921836302592018, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7837921836302592018, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2025,7 +2038,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7837921836302592019, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
       propertyPath: CapturedPoint
-      value: 999
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837921836302592019, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: enemyList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837921836302592019, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: enemyList.Array.data[1]
+      value: 
+      objectReference: {fileID: 2954942597511847754, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
+    - target: {fileID: 7837921836302592019, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: enemyList.Array.data[2]
+      value: 
+      objectReference: {fileID: 6565791800175677518, guid: 7cc63d80694e472489424401baae88b2, type: 3}
+    - target: {fileID: 7837921836302592019, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: enemyList.Array.data[3]
+      value: 
+      objectReference: {fileID: 1348055386013386247, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
+    - target: {fileID: 7837921836302592020, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: wavesTimeout.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837921836302592020, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
+      propertyPath: wavesTimeout.Array.data[1]
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0035fc87f8ce04989f90dcc0d5c397, type: 3}
