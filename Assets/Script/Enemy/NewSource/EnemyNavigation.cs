@@ -26,6 +26,8 @@ public class EnemyNavigation : MonoBehaviour
     // Position on last frame
     private Vector2 prevPosition;
     public int enemyIndex =-1;
+    [HideInInspector]
+    public EnemyBehaviour enemy;
     void OnEnable()
     {
         prevPosition= transform.position;
@@ -112,7 +114,7 @@ public class EnemyNavigation : MonoBehaviour
         healthSystem.Damage(damageAmount);
         if (healthSystem.GetHealth() == 0)
         {
-            Destroy(transform.gameObject);
+            Destroy(gameObject);
             PointSpawner.activeEnemies.Remove(transform.gameObject);
         }
     }
