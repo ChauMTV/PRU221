@@ -13,7 +13,6 @@ public class CapturePoint : MonoBehaviour
     /// <param name="other">Other.</param>
     void OnTriggerEnter2D(Collider2D other)
     {
-		Destroy(other.gameObject);
 		EventManager.TriggerEvent("Captured", other.gameObject, null);
     }
 }

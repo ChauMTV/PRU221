@@ -82,6 +82,23 @@ public class AiStatePatrol : AiState
     /// </summary>
     void FixedUpdate()
     {
+
+        if (path == null)
+        {
+            // If I have no path - try to find it
+            path = FindObjectOfType<Pathway>();
+            Debug.Assert(path, "Have no path");
+        }
+        if (destination == null)
+        {
+            // Get next waypoint from my path
+            destination = path.GetNearestWaypoint(transform.position);
+        }
+        // Set destination for navigation agent
+        aiBehavior.navAgent.destination = destination.transform.position;
+        // Start moving
+        aiBehavior.navAgent.move = true;
+        aiBehavior.navAgent.turn = true;
         if (destination != null)
         {
             // If destination reached

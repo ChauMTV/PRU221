@@ -79,11 +79,15 @@ public class SpawnPoint : MonoBehaviour
 	void Update()
 	{
 		// If all spawned enemies are dead
-		if ((finished == true) && (activeEnemies.Count <= 0))
-		{
-			EventManager.TriggerEvent("AllEnemiesAreDead", null, null);
-			gameObject.SetActive(false);
-		}
+		//if ((finished == true) && (activeEnemies.Count <= 0))
+		//{
+		//	EventManager.TriggerEvent("AllEnemiesAreDead", null, null);
+		//	gameObject.SetActive(false);
+		//}
+		// if(endlessWave == true)
+		//{
+  //          gameObject.SetActive(true);
+  //      }
 	}
 
 	/// <summary>
@@ -93,101 +97,146 @@ public class SpawnPoint : MonoBehaviour
 	private IEnumerator RunWave(int waveIdx)
 	{
 		if (waves.Count > waveIdx)
-		{
-			yield return new WaitForSeconds(waves[waveIdx].delayBeforeWave);
+        {
+            yield return new WaitForSeconds(waves[waveIdx].delayBeforeWave);
+            GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+            _pool = new ObjectPool<GameObject>(() => { return Instantiate(prefab); }, enemy =>
+            {
+                enemy.SetActive(true);
+            }, enemy =>
+            {
+                enemy.SetActive(false);
+                enemy.GetComponent<EnemyPath>().path = null;
+                enemy.GetComponent<EnemyPath>().destination = null;
+            }, enemy =>
+            {
+                Destroy(enemy);
+            }, false, 5, maxPoolSize
+      );
+            while (endlessWave && _pool.CountActive < maxPoolSize)
+            {
+                newEnemy = _pool.Get();
+                newEnemy.GetComponent<AiBehavior>().SetParentPool(_pool);
+                newEnemy.transform.position = transform.position;
+                Debug.Log("active: " + _pool.CountActive);
+                newEnemy.GetComponent<AiStatePatrol>().path = path;
+                NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
+                enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
+                activeEnemies.Add(newEnemy);
 
-			while (endlessWave == true)
-			{
-				GameObject prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
-				// Create enemy
-				GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
-				newEnemy.name = prefab.name;
-				// Set pathway
-				newEnemy.GetComponent<AiStatePatrol>().path = path;
-				//	NavAgent agent = newEnemy.GetComponent<NavAgent>();
-				// Set speed offset
-				//	agent.speed = Random.Range(agent.speed * (1f - speedRandomizer), agent.speed * (1f + speedRandomizer));
-				// Add enemy to list
-				activeEnemies.Add(newEnemy);
-				// Wait for delay before next enemy run
-				yield return new WaitForSeconds(unitSpawnDelay);
-			}
+                yield return new WaitForSeconds(8);
+            }
 
-			foreach (GameObject enemy in waves[waveIdx].enemies)
-			{
-				GameObject prefab = null;
-				prefab = enemy;
-				// If enemy prefab not specified - spawn random enemy
-				if (prefab == null && randomEnemiesList.Count > 0)
-				{
-					prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
-				}
-				if (prefab == null)
-				{
-					Debug.LogError("Have no enemy prefab. Please specify enemies in Level Manager or in Spawn Point");
-				}
-				// Create enemy
-				GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
-				newEnemy.name = prefab.name;
-				// Set pathway
-				newEnemy.GetComponent<AiStatePatrol>().path = path;
-				NavAgent agent = newEnemy.GetComponent<NavAgent>();
-				// Set speed offset
-				agent.speed = Random.Range(agent.speed * (1f - speedRandomizer), agent.speed * (1f + speedRandomizer));
-				// Add enemy to list
-				activeEnemies.Add(newEnemy);
-				// Wait for delay before next enemy run
-				yield return new WaitForSeconds(unitSpawnDelay);
-			}
-			if (waveIdx + 1 == waves.Count)
-			{
-				finished = true;
-				endlessWave = true;
-			}
-		}
-		if (endlessWave == true)
-		{
-			_pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
-			{
-				enemy.SetActive(true);
+            foreach (GameObject enemy in waves[waveIdx].enemies)
+            {
+                prefab = null;
+                prefab = enemy;
+                // If enemy prefab not specified - spawn random enemy
+                if (prefab == null && randomEnemiesList.Count > 0)
+                {
+                    prefab = randomEnemiesList[Random.Range(0, randomEnemiesList.Count)];
+                }
+                if (prefab == null)
+                {
+                    Debug.LogError("Have no enemy prefab. Please specify enemies in Level Manager or in Spawn Point");
+                }
+                // Create enemy
+                GameObject newEnemy = Instantiate(prefab, transform.position, transform.rotation);
+                newEnemy.name = prefab.name;
+                // Set pathway
+                newEnemy.GetComponent<AiStatePatrol>().path = path;
+                NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
+                enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
 
-			}, enemy =>
-			{
-				enemy.SetActive(false);
-				enemy.GetComponent<AiStatePatrol>().path = null;
-				enemy.GetComponent<AiStatePatrol>().destination = null;
-				activeEnemies.Remove(enemy);
-			}, enemy =>
-			{
-				Destroy(enemy);
-			}, false, 5, maxPoolSize
+                // Add enemy to list
+                activeEnemies.Add(newEnemy);
+                // Wait for delay before next enemy run
+                yield return new WaitForSeconds(unitSpawnDelay);
+            }
+            if (waveIdx + 1 == waves.Count)
+            {
+                finished = true;
+                endlessWave = true;
+
+            }
+            if (endlessWave == true)
+            {
+
+                _pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
+                {
+                    enemy.SetActive(true);
+
+                }, enemy =>
+                {
+                    enemy.SetActive(false);
+                    enemy.GetComponent<AiStatePatrol>().path = null;
+                    enemy.GetComponent<AiStatePatrol>().destination = null;
+                }, enemy =>
+                {
+                    Destroy(enemy);
+                }, false, 5, maxPoolSize
+      );
+                while (endlessWave == true)
+                {
+                    if (_pool.CountActive < maxPoolSize)
+                    {
+                        newEnemy = _pool.Get();
+                        newEnemy.GetComponent<AiBehavior>().SetParentPool(_pool);
+                        newEnemy.transform.position = transform.position;
+                        Debug.Log("active: " + _pool.CountActive);
+                        Debug.Log("dang de");
+
+                        newEnemy.GetComponent<AiStatePatrol>().path = path;
+                        ///////////////////////////////////////////////////////////////
+                        //newEnemy.GetComponent<EnemyPath>().destination = null;
+                        NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
+                        ////////////////////////////////////////////////////////////////
+                        enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
+                        //activeEnemies.Add(newEnemy);
+                    }
+                    yield return new WaitForSeconds(3);
+                }
+            }
+        }
+        if (endlessWave == true)
+        {
+
+            _pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
+            {
+                enemy.SetActive(true);
+
+            }, enemy =>
+            {
+                enemy.SetActive(false);
+                enemy.GetComponent<AiStatePatrol>().path = null;
+                enemy.GetComponent<AiStatePatrol>().destination = null;
+            }, enemy =>
+            {
+                Destroy(enemy);
+            }, false, 5, maxPoolSize
   );
-			while (endlessWave == true)
-			{
-				//if (endlessWaveStartTimer <= 0)
-				//{
-				//    Debug.Log(endlessWaveStartTimer);
-				if (_pool.CountActive < maxPoolSize)
-				{
-					newEnemy = _pool.Get();
+            while (endlessWave == true)
+            {
+                if (_pool.CountActive < maxPoolSize)
+                {
+                    newEnemy = _pool.Get();
+                    newEnemy.GetComponent<AiBehavior>().SetParentPool(_pool);
+                    newEnemy.transform.position = transform.position;
+                    Debug.Log("active: " + _pool.CountActive);
+                    Debug.Log("dang de");
 
-					//newEnemy.GetComponent<EnemyBehaviour>().SetParentObjectPool(_pool);
-					newEnemy.transform.position = transform.position;
-					Debug.Log("active: " + _pool.CountActive);
-					Debug.Log("dang de");
-
-					newEnemy.GetComponent<AiStatePatrol>().path = path;
-					newEnemy.GetComponent<EnemyPath>().path = path;
-					NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
-					enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
-					enemiesListInPool.Add(newEnemy);
-					//enemyBehaviours.Add(enemyNav);
-
-					yield return new WaitForSeconds(3);
-				}
-			}
-		}
-	}
+                    newEnemy.GetComponent<AiStatePatrol>().path = path;
+                    ///////////////////////////////////////////////////////////////
+                    //newEnemy.GetComponent<EnemyPath>().destination = null;
+                    NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
+                    ////////////////////////////////////////////////////////////////
+                    enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
+                    //activeEnemies.Add(newEnemy);
+                }
+                yield return new WaitForSeconds(8);
+            }
+        }
+    }
 
 	/// <summary>
 	/// On unit die.

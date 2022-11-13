@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 /// <summary>
 /// This target can receive damage.
@@ -20,13 +21,15 @@ public class DamageTaker : MonoBehaviour
 	public bool isTrigger;
 	// Die sound effect
 	public AudioClip dieSfx;
-
+	public AiBehavior aiBehavior;
+	public GameObject enemy;
     // Image of this object
     private SpriteRenderer sprite;
     // Visualisation of hit or heal is in progress
 	private bool coroutineInProgress;
 	// Original width of health bar (full hp)
     private float originHealthBarWidth;
+	ObjectPool<GameObject> pool;
 
     /// <summary>
     /// Awake this instance.
@@ -44,6 +47,7 @@ public class DamageTaker : MonoBehaviour
     void Start()
     {
         originHealthBarWidth = healthBar.localScale.x;
+		aiBehavior = GetComponent<AiBehavior>();
     }
 
     /// <summary>
@@ -137,7 +141,7 @@ public class DamageTaker : MonoBehaviour
 				}
 			}
 		}
-		Destroy(gameObject);
+		GetComponent<AiBehavior>().releaseMySelfOnDisable();
 	}
 
     /// <summary>
