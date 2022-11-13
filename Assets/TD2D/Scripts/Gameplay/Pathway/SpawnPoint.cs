@@ -108,6 +108,7 @@ public class SpawnPoint : MonoBehaviour
                 enemy.SetActive(false);
                 enemy.GetComponent<EnemyPath>().path = null;
                 enemy.GetComponent<EnemyPath>().destination = null;
+                enemy.GetComponent<DamageTaker>().currentHitpoints = 0;
             }, enemy =>
             {
                 Destroy(enemy);
@@ -119,6 +120,7 @@ public class SpawnPoint : MonoBehaviour
                 newEnemy.GetComponent<AiBehavior>().SetParentPool(_pool);
                 newEnemy.transform.position = transform.position;
                 Debug.Log("active: " + _pool.CountActive);
+                newEnemy.GetComponent<DamageTaker>().enabled = true;
                 newEnemy.GetComponent<AiStatePatrol>().path = path;
                 NavAgent enemyNav = newEnemy.GetComponent<NavAgent>();
                 enemyNav.speed = Random.Range(enemyNav.speed * (1f - speedRandomizer), enemyNav.speed * (1f + speedRandomizer));
@@ -171,6 +173,7 @@ public class SpawnPoint : MonoBehaviour
                     enemy.SetActive(false);
                     enemy.GetComponent<AiStatePatrol>().path = null;
                     enemy.GetComponent<AiStatePatrol>().destination = null;
+                    enemy.GetComponent<DamageTaker>().currentHitpoints = 0;
                 }, enemy =>
                 {
                     Destroy(enemy);
@@ -185,7 +188,8 @@ public class SpawnPoint : MonoBehaviour
                         newEnemy.transform.position = transform.position;
                         Debug.Log("active: " + _pool.CountActive);
                         Debug.Log("dang de");
-
+                        
+                        newEnemy.GetComponent<DamageTaker>().enabled=true;
                         newEnemy.GetComponent<AiStatePatrol>().path = path;
                         ///////////////////////////////////////////////////////////////
                         //newEnemy.GetComponent<EnemyPath>().destination = null;
@@ -204,7 +208,6 @@ public class SpawnPoint : MonoBehaviour
             _pool = new ObjectPool<GameObject>(() => { return Instantiate(randomEnemiesList[Random.Range(0, randomEnemiesList.Count)]); }, enemy =>
             {
                 enemy.SetActive(true);
-
             }, enemy =>
             {
                 enemy.SetActive(false);
@@ -224,7 +227,8 @@ public class SpawnPoint : MonoBehaviour
                     newEnemy.transform.position = transform.position;
                     Debug.Log("active: " + _pool.CountActive);
                     Debug.Log("dang de");
-
+                    DamageTaker hit =newEnemy.GetComponent<DamageTaker>();
+                    
                     newEnemy.GetComponent<AiStatePatrol>().path = path;
                     ///////////////////////////////////////////////////////////////
                     //newEnemy.GetComponent<EnemyPath>().destination = null;
@@ -249,7 +253,6 @@ public class SpawnPoint : MonoBehaviour
 		if (activeEnemies.Contains(obj) == true)
 		{
 			// Remove it from buffer
-			activeEnemies.Remove(obj);
 		}
 	}
 

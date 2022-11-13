@@ -16,6 +16,8 @@ public class AiBehavior : MonoBehaviour
     // This state will be activate on start
 	public AiState defaultState;
 
+    [HideInInspector]
+    public DamageTaker hit;
     ObjectPool<GameObject> Pool;
     
     public GameObject EndPoint;
@@ -40,6 +42,10 @@ public class AiBehavior : MonoBehaviour
         {
             //Find again pathway for object
             aiPath = GetComponentInChildren<AiStatePatrol>();
+        }
+        if(hit == null)
+        {
+            hit = GetComponentInChildren<DamageTaker>();
         }
 	}
 
@@ -116,6 +122,7 @@ public class AiBehavior : MonoBehaviour
         //if(enemy_hp<=0)// cua thang dung~
         Pool.Release(gameObject);
     }
+
 
     public void SetParentPool(ObjectPool<GameObject> Pool)
     {
