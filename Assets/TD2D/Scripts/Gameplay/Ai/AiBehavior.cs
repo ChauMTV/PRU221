@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 /// <summary>
 /// Main script to control all AI states
@@ -10,9 +11,14 @@ public class AiBehavior : MonoBehaviour
 	// Navigation agent if it is needed
 	[HideInInspector]
 	public NavAgent navAgent;
+    [HideInInspector]
+    public AiStatePatrol aiPath;
     // This state will be activate on start
 	public AiState defaultState;
 
+    ObjectPool<GameObject> Pool;
+    
+    public GameObject EndPoint;
     // List with all states for this AI
 	private List<AiState> aiStates = new List<AiState>();
     // The state that was before
@@ -30,6 +36,11 @@ public class AiBehavior : MonoBehaviour
 			// Try to find navigation agent for this object
 			navAgent = GetComponentInChildren<NavAgent>();
 		}
+        if(aiPath == null)
+        {
+            //Find again pathway for object
+            aiPath = GetComponentInChildren<AiStatePatrol>();
+        }
 	}
 
 	/// <summary>
@@ -91,6 +102,43 @@ public class AiBehavior : MonoBehaviour
             Debug.LogError("No AI states found");
         }
     }
+
+    #region
+    /// <summary>
+    /// using Object Pool for Releasing object
+    /// </summary>
+    public void releaseMySelfOnDisable()
+    {
+        // Disable AI on AiBehavior disabling
+        //DisableAllStates(); cua ngta
+
+        //chuyen vo cai enemy stats thi bo comment
+        //if(enemy_hp<=0)// cua thang dung~
+        Pool.Release(gameObject);
+    }
+
+    public void SetParentPool(ObjectPool<GameObject> Pool)
+    {
+        this.Pool = Pool;
+    }
+
+    public void DetectEndPoint()
+    {
+        if (Vector3.Distance(transform.position, EndPoint.transform.position) <= 0.5f)
+        {
+            //original
+            releaseMySelfOnDisable();
+            aiPath.path = null;
+            aiPath.destination = null;
+        }
+
+    }
+    private void Update()
+    {
+        DetectEndPoint();
+    }
+
+    #endregion
 
     /// <summary>
     /// Set AI to defalt state.
