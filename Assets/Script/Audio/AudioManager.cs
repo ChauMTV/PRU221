@@ -2,52 +2,137 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudiosManager : MonoBehaviour
 {
-    // Audio players components.
-    public AudioSource EffectsSource;
-    public AudioSource MusicSource;
-    // Random pitch adjustment range.
-    public float LowPitchRange = .95f;
-    public float HighPitchRange = 1.05f;
-    // Singleton instance.
-    public static AudioManager Instance = null;
+    // Singleton
+    public static AudiosManager instance;
+    // Sound source for sound effects
+    public AudioSource soundSource;
+    // Sound source for soundtrack
+    public AudioSource musicSource;
+    // Soundtrack
+    public AudioClip track;
+    // Wave start sfx
+    public AudioClip waveStart;
+    // Enemy reached capture point sfx
+    public AudioClip captured;
 
-    // Initialize the singleton instance.
-    private void Awake()
+    // Player click UI sfx
+    public AudioClip uiClick;
+    // Defeat sfx
+    public AudioClip defeat;
+
+    // Die sfx is played now
+    private bool dieCoroutine = false;
+
+
+    void OnEnable()
     {
-        // If there is not already an instance of AuidoManager, set it to this.
-        if (Instance == null)
+        instance = this;
+        EventManager.StartListening("GamePaused", GamePaused);
+        EventManager.StartListening("WaveStart", WaveStart);
+        EventManager.StartListening("Captured", Captured);
+
+        EventManager.StartListening("UserUiClick", UserUiClick);
+
+        EventManager.StartListening("Defeat", Defeat);
+
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening("GamePaused", GamePaused);
+        EventManager.StopListening("WaveStart", WaveStart);
+        EventManager.StopListening("Captured", Captured);
+
+        EventManager.StopListening("UserUiClick", UserUiClick);
+
+        EventManager.StopListening("Defeat", Defeat);
+
+    }
+    void Start()
+    {
+        Debug.Assert(soundSource && musicSource, "Wrong initial settings");
+        // Set volume from stored configurations
+        //SetVolume(DataManager.instance.configs.soundVolume, DataManager.instance.configs.musicVolume);
+
+    }
+    void OnDestroy()
+    {
+        StopAllCoroutines();
+        if (instance == this)
         {
-            Instance = this;
+            instance = null;
         }
-        //If an instance already exists, destroy whatever this object is to enforce the singleton.
-        else if (Instance != this)
+    }
+    private void GamePaused(GameObject obj, string param)
+    {
+        if (param == bool.TrueString) // Paused
         {
-            Destroy(gameObject);
+            // Pause soundtrack
+            musicSource.Pause();
         }
-        //Set AudioManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-        DontDestroyOnLoad(gameObject);
+        else // Unpaused
+        {
+            // Play soundtrack
+            if (track != null)
+            {
+                musicSource.clip = track;
+                musicSource.Play();
+            }
+        }
     }
-    // Play a single clip through the sound effects source.
-    public void Play(AudioClip clip)
+    public void SetVolume(float sound, float music)
     {
-        EffectsSource.clip = clip;
-        EffectsSource.Play();
+        soundSource.volume = sound;
+        musicSource.volume = music;
     }
-    // Play a single clip through the music source.
-    public void PlayMusic(AudioClip clip)
+    public void PlaySound(AudioClip audioClip)
     {
-        MusicSource.clip = clip;
-        MusicSource.Play();
+        soundSource.PlayOneShot(audioClip, soundSource.volume);
     }
-    // Play a random clip from an array, and randomize the pitch slightly.
-    public void RandomSoundEffect(params AudioClip[] clips)
+
+    public void PlayDie(AudioClip audioClip)
     {
-        int randomIndex = Random.Range(0, clips.Length);
-        float randomPitch = Random.Range(LowPitchRange, HighPitchRange);
-        EffectsSource.pitch = randomPitch;
-        EffectsSource.clip = clips[randomIndex];
-        EffectsSource.Play();
+        if (dieCoroutine == false)
+        {
+            StartCoroutine(DieCoroutine(audioClip));
+        }
+    }
+    private IEnumerator DieCoroutine(AudioClip audioClip)
+    {
+        dieCoroutine = true;
+        PlaySound(audioClip);
+        // Wait for clip end
+        yield return new WaitForSeconds(audioClip.length);
+        dieCoroutine = false;
+    }
+    private void WaveStart(GameObject obj, string param)
+    {
+        if (waveStart != null)
+        {
+            PlaySound(waveStart);
+        }
+    }
+    private void Captured(GameObject obj, string param)
+    {
+        if (captured != null)
+        {
+            PlaySound(captured);
+        }
+    }
+    private void UserUiClick(GameObject obj, string param)
+    {
+        if (obj != null)
+        {
+            PlaySound(uiClick);
+        }
+    }
+    private void Defeat(GameObject obj, string param)
+    {
+        if (defeat != null)
+        {
+            PlaySound(defeat);
+        }
     }
 }

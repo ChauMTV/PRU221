@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Pathway inspector.
 /// </summary>
-public class PathwayInspector : MonoBehaviour
+public class PathwaysInspector : MonoBehaviour
 {
 	//// Spawn point of this pathway
 	public PointSpawner spawnPoint;

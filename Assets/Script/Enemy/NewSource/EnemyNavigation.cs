@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,6 @@ public class EnemyNavigation : MonoBehaviour
     // Can turning
     [HideInInspector]
     public bool turn = true;
-
-    public HealthBar healthBar;
-    private HealthSystem healthSystem;
-    public GameObject damagePoint;
     // Destination position
     [HideInInspector]
     public Vector2 destination;
@@ -23,10 +20,14 @@ public class EnemyNavigation : MonoBehaviour
     public Vector2 velocity;
     [HideInInspector]
     public Animator anim;
-
+    public HealthBar healthBar;
+    private HealthSystem healthSystem;
+    public GameObject damagePoint;
     // Position on last frame
     private Vector2 prevPosition;
-
+    public int enemyIndex =-1;
+    [HideInInspector]
+    public EnemyBehaviour enemy;
     void OnEnable()
     {
         prevPosition= transform.position;
@@ -34,9 +35,10 @@ public class EnemyNavigation : MonoBehaviour
     }
     void Start()
     {
-        HealthSystem healthSystem = new HealthSystem(100);
+        transform.GetComponent<GameObject>();
+        enemyIndex = PointSpawner.enemyIndex;
+        healthSystem = new HealthSystem(100);
         healthBar.Setup(healthSystem);
-        Debug.Log(healthSystem.GetHealth());
     }
 
     // Update is called once per frame
@@ -112,7 +114,14 @@ public class EnemyNavigation : MonoBehaviour
         healthSystem.Damage(damageAmount);
         if (healthSystem.GetHealth() == 0)
         {
-            Destroy(transform.gameObject);
+            Destroy(gameObject);
+            PointSpawner.activeEnemies.Remove(transform.gameObject);
         }
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
 }

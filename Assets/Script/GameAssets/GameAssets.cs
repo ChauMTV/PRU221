@@ -24,6 +24,7 @@ public class GameAssets : MonoBehaviour
     public GameObject clayTower;
     public GameObject[] selectorArr= new GameObject[4];
     public Transform[] bulletArr= new Transform[4];
+    public EnemyNavigation[] enemies = new EnemyNavigation[4];
     public int sDame;
     public int cDame;
     public int fDame;
@@ -45,4 +46,5 @@ public class GameAssets : MonoBehaviour
         bulletDamage[2] = fDame;
         bulletDamage[3] = mDame;
     }
+
 }

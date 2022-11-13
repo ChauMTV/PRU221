@@ -4,7 +4,7 @@ using UnityEngine;
 using CodeMonkey;
 using CodeMonkey.Utils;
 
-public class Tower : MonoBehaviour
+public class Towers : MonoBehaviour
 {
     public int towerType;
     private Vector3 projectileShooting;
@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
     private float shootTimer;
     [SerializeField]
     TowerWheel towerWheel;
-    ProjecTileShooting projecTileShooting;
+    public ProjecTileShooting projecTileShooting;
     private void Start()
     {
         towerType = GameObject.Find("TowerWheel").GetComponent<TowerWheel>().preTowerType;
@@ -21,7 +21,7 @@ public class Tower : MonoBehaviour
     private void Awake()
     {
         projectileShooting = transform.Find("ProjectileShootFromPosition").position;
-        range = 4f;
+        range = 2.5f;
         shootTimerMax = 1f;
     }
     private void Update()
@@ -36,7 +36,7 @@ public class Tower : MonoBehaviour
         if(shootTimer <= 0f)
         {
             shootTimer = shootTimerMax;
-            EnemyNavigation enemy = GetClosestEnemy();
+            GameObject enemy = GetClosestEnemy();
             if (enemy != null)
             {
                 projecTileShooting.Create(projectileShooting, enemy, towerType, GameAssets.i.bulletDamage[towerType]);
@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour
         }
 
     }
-    private EnemyNavigation GetClosestEnemy()
+    private GameObject GetClosestEnemy()
     {
         return PointSpawner.GetClosestEnemy(transform.position, range);
     }

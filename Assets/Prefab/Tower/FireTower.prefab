@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4394499274971764687}
   - component: {fileID: 5968444300755085397}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1403218785
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bc97e9cfe054f1f499f4cddbf5531f2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3211511928895905554}
   - component: {fileID: 8628625487026307718}
-  m_Layer: 0
+  - component: {fileID: 9129582902641027381}
+  m_Layer: 9
   m_Name: FireTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,6 +136,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   towerWheel: {fileID: 1678230824042781016, guid: ae7dbd3e3d897b14291109b5f6e2b074, type: 3}
+  projecTileShooting: {fileID: 6444289695647281480}
+--- !u!114 &9129582902641027381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5136072374154711951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c0b77410103e44db242d3a67433d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 100
 --- !u!1 &5705513988791762451
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7880235723236502051}
   - component: {fileID: 3080002379265583738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8181403092957380294}
   - component: {fileID: 8074942052010488202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +305,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1403218785
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5d1323ea4f29d134da09d3b7e8eebde3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -313,7 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4598383210570493701}
   - component: {fileID: 6444289695647281480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ProjectileShootFromPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9056635888652644334}
   - component: {fileID: 6646418804569577654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +433,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2080896387
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: af073224213230f49b0508d11cac0a18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -6,7 +6,7 @@ using UnityEngine;
 /// Pathway for enemy moving.
 /// </summary>
 [ExecuteInEditMode]
-public class Pathway : MonoBehaviour
+public class Pathwayss : MonoBehaviour
 {
 	#if UNITY_EDITOR
     /// <summary>

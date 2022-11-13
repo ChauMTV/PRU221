@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TowerWheel : MonoBehaviour
 {
 
@@ -14,8 +14,8 @@ public class TowerWheel : MonoBehaviour
     TowerPlacement towerPlacement;
 
     public int preTowerType = -1;
-
-
+    private Text priceText;
+    private int price = 0;
     public bool towerChanged = false;
     void Update()
     {
@@ -26,7 +26,9 @@ public class TowerWheel : MonoBehaviour
             if (towerIndex != -1)
             {
                 preTowerType = towerIndex;
+                
                 towerPlacement.SpawnTower(towerPlacement.preTowerIndex, towerIndex);
+                
                 towerPlacement.buyTower = false;
                 towerChanged = false;
             }

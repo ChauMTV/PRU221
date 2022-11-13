@@ -4,15 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System.Diagnostics;
 
 /// <summary>
 /// User interface and events manager.
 /// </summary>
-public class UiManager : MonoBehaviour
+public class UiManagers : MonoBehaviour
 {
-    //// This scene will loaded after whis level exit
-    //public string exitSceneName;
     // Pause menu canvas
     public GameObject pauseMenu;
     // Defeat menu canvas
@@ -28,11 +25,20 @@ public class UiManager : MonoBehaviour
 
     // Is game paused?
     private bool paused;
+    // Camera is dragging now
+    private bool cameraIsDragged;
+    // Origin point of camera dragging start
+    private Vector3 dragOrigin = Vector3.zero;
+    // Camera control component
+    private CameraController cameraControl;
 
     /// <summary>
     /// Awake this instance.
     /// </summary>
- 
+    void Awake()
+    {
+        cameraControl = FindObjectOfType<CameraController>();
+    }
 
     /// <summary>
     /// Raises the enable event.
@@ -61,88 +67,87 @@ public class UiManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
     }
 
     /// <summary>
     /// Update this instance.
     /// </summary>
-    //void Update()
-    //{
-    //    if (paused == false)
-    //    {
-    //        // User press mouse button
-    //        if (Input.GetMouseButtonDown(0) == true)
-    //        {
-    //            // Check if pointer over UI components
-    //            GameObject hittedObj = null;
-    //            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-    //            pointerData.position = Input.mousePosition;
-    //            List<RaycastResult> results = new List<RaycastResult>();
-    //            EventSystem.current.RaycastAll(pointerData, results);
-    //            if (results.Count > 0) // UI components on pointer
-    //            {
-    //                // Search for Action Icon hit in results
-    //                foreach (RaycastResult res in results)
-    //                {
-    //                    if (res.gameObject.CompareTag("ActionIcon"))
-    //                    {
-    //                        hittedObj = res.gameObject;
-    //                        break;
-    //                    }
-    //                }
-    //                // Send message with user click data on UI component
-    //                EventManager.TriggerEvent("UserUiClick", hittedObj, null);
-    //            }
-    //            else // No UI components on pointer
-    //            {
-    //                // Check if pointer over colliders
-    //                RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward);
-    //                foreach (RaycastHit2D hit in hits)
-    //                {
-    //                    // If this object has unit info
-    //                    if (hit.collider.CompareTag("UnitInfo"))
-    //                    {
-    //                        Tower tower = hit.collider.GetComponentInParent<Tower>();
-    //                        if (tower != null)
-    //                        {
-    //                            hittedObj = tower.gameObject;
-    //                            break;
-    //                        }
-    //                        EnemyBehaviour aiBehavior = hit.collider.GetComponentInParent<EnemyBehaviour>();
-    //                        if (aiBehavior != null)
-    //                        {
-    //                            hittedObj = aiBehavior.gameObject;
-    //                            break;
-    //                        }
-    //                        hittedObj = hit.collider.gameObject;
-    //                        break;
-    //                    }
-    //                }
-    //                // Send message with user click data on game space
-    //                EventManager.TriggerEvent("UserClick", hittedObj, null);
-    //            }
-    //            // If there is no hitted object - start camera drag
-    //            if (hittedObj == null)
-    //            {
-    //                cameraIsDragged = true;
-    //                dragOrigin = Input.mousePosition;
-    //            }
-    //        }
-    //        if (Input.GetMouseButtonUp(0) == true)
-    //        {
-    //            // Stop drag camera on mouse release
-    //            cameraIsDragged = false;
-    //        }
-    //        if (cameraIsDragged == true)
-    //        {
-    //            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-    //            // Camera dragging (inverted)
-    //            cameraControl.MoveX(-pos.x);
-    //            cameraControl.MoveY(-pos.y);
-    //        }
-    //    }
-    //}
+    void Update()
+    {
+        if (paused == false)
+        {
+            // User press mouse button
+            if (Input.GetMouseButtonDown(0) == true)
+            {
+                // Check if pointer over UI components
+                GameObject hittedObj = null;
+                PointerEventData pointerData = new PointerEventData(EventSystem.current);
+                pointerData.position = Input.mousePosition;
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
+                if (results.Count > 0) // UI components on pointer
+                {
+                    // Search for Action Icon hit in results
+                    foreach (RaycastResult res in results)
+                    {
+                        if (res.gameObject.CompareTag("ActionIcon"))
+                        {
+                            hittedObj = res.gameObject;
+                            break;
+                        }
+                    }
+                    // Send message with user click data on UI component
+                    EventManager.TriggerEvent("UserUiClick", hittedObj, null);
+                }
+                else // No UI components on pointer
+                {
+                    // Check if pointer over colliders
+                    RaycastHit2D[] hits = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward);
+                    foreach (RaycastHit2D hit in hits)
+                    {
+                        // If this object has unit info
+                        if (hit.collider.CompareTag("UnitInfo"))
+                        {
+                            TowerNew tower = hit.collider.GetComponentInParent<TowerNew>();
+                            if (tower != null)
+                            {
+                                hittedObj = tower.gameObject;
+                                break;
+                            }
+                            EnemyBehaviour aiBehavior = hit.collider.GetComponentInParent<EnemyBehaviour>();
+                            if (aiBehavior != null)
+                            {
+                                hittedObj = aiBehavior.gameObject;
+                                break;
+                            }
+                            hittedObj = hit.collider.gameObject;
+                            break;
+                        }
+                    }
+                    // Send message with user click data on game space
+                    EventManager.TriggerEvent("UserClick", hittedObj, null);
+                }
+                // If there is no hitted object - start camera drag
+                if (hittedObj == null)
+                {
+                    cameraIsDragged = true;
+                    dragOrigin = Input.mousePosition;
+                }
+            }
+            if (Input.GetMouseButtonUp(0) == true)
+            {
+                // Stop drag camera on mouse release
+                cameraIsDragged = false;
+            }
+            if (cameraIsDragged == true)
+            {
+                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+                // Camera dragging (inverted)
+                cameraControl.MoveX(-pos.x);
+                cameraControl.MoveY(-pos.y);
+            }
+        }
+    }
 
     /// <summary>
     /// Stop current scene and load new scene
@@ -163,13 +168,6 @@ public class UiManager : MonoBehaviour
         PauseGame(false);
     }
 
- //   /// <summary>
- //   /// Gos to main menu.
- //   /// </summary>
-	//private void ExitFromLevel()
- //   {
- //       LoadScene(exitSceneName);
- //   }
 
     /// <summary>
     /// Closes all UI canvases.
@@ -240,38 +238,6 @@ public class UiManager : MonoBehaviour
         StartCoroutine("VictoryCoroutine");
     }
 
-    /// <summary>
-    /// Display victory menu after delay.
-    /// </summary>
-    /// <returns>The coroutine.</returns>
-    //private IEnumerator VictoryCoroutine()
-    //{
-    //    yield return new WaitForSeconds(menuDisplayDelay);
-    //    PauseGame(true);
-    //    CloseAllUI();
-
-    //    // --- Game progress autosaving ---
-    //    // Get the name of completed level
-    //    DataManager.instance.progress.lastCompetedLevel = SceneManager.GetActiveScene().name;
-    //    // Check if this level have no completed before
-    //    bool hit = false;
-    //    foreach (string level in DataManager.instance.progress.openedLevels)
-    //    {
-    //        if (level == SceneManager.GetActiveScene().name)
-    //        {
-    //            hit = true;
-    //            break;
-    //        }
-    //    }
-    //    if (hit == false)
-    //    {
-    //        DataManager.instance.progress.openedLevels.Add(SceneManager.GetActiveScene().name);
-    //    }
-    //    // Save game progress
-    //    DataManager.instance.SaveGameProgress();
-
-    //    victoryMenu.SetActive(true);
-    //}
 
     /// <summary>
     /// Restarts current level.

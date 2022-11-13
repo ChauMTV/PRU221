@@ -14,7 +14,7 @@ public class PathMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = Waypoint.points[0];
+        target = Waypoints.points[0];
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class PathMovement : MonoBehaviour
     void GetNextWaypoint()
     {
 
-        if (wavepointIndex >= Waypoint.points.Length - 1)
+        if (wavepointIndex >= Waypoints.points.Length - 1)
         {
 
             End();
@@ -47,7 +47,7 @@ public class PathMovement : MonoBehaviour
             return;
         }
         wavepointIndex++;
-        target = Waypoint.points[wavepointIndex];
+        target = Waypoints.points[wavepointIndex];
     }
     void End()
     {

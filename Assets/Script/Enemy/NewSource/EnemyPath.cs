@@ -84,7 +84,6 @@ public class EnemyPath : EnemyState
         enemyBehaviour.enemyNav.move = true;
         enemyBehaviour.enemyNav.turn = true;
 
-
         if (destination != null)
         {
             //if destination reached

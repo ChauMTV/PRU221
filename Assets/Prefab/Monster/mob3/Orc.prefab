@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 6565791799359980904}
   m_Layer: 8
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -129410687
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 544f3b23d8c2c2244ba501033706ae7c, type: 3}
@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 6565791800175677521}
   - component: {fileID: 6565791800175677520}
   - component: {fileID: 6867367079680465515}
+  - component: {fileID: 1415739036487527850}
   - component: {fileID: 6409575133451274163}
   - component: {fileID: 984615219606203122}
   - component: {fileID: 1600569337667463167}
@@ -272,6 +273,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1415739036487527850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6565791800175677518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c0b77410103e44db242d3a67433d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 0
 --- !u!114 &6409575133451274163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyNav: {fileID: 0}
+  enemyPath: {fileID: 0}
   defaultState: {fileID: 1600569337667463167}
 --- !u!114 &984615219606203122
 MonoBehaviour:
@@ -306,6 +321,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   healthBar: {fileID: 2231471986864374654}
   damagePoint: {fileID: 6565791798909815765}
+  enemyIndex: -1
+  enemy: {fileID: 0}
 --- !u!114 &1600569337667463167
 MonoBehaviour:
   m_ObjectHideFlags: 0

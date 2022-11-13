@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Pathways folder inspector.
 /// </summary>
-public class PathwayFolderInspect : MonoBehaviour
+public class PathwayFoldersInspect : MonoBehaviour
 {
     // Prefab for pathway
     public GameObject pathwayPrefab;

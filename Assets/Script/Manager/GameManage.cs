@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameManage : MonoBehaviour
 {
-    public int gold = 0;
+    public int gold = 50;
 
     public int CapturedPoint = 10;
 
     public List<GameObject> enemyList = new List<GameObject>();
+
+    public List<GameObject> towerList = new List<GameObject>();
 
     // User interface manager
     private UiManager uiManager;

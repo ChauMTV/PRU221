@@ -5,33 +5,46 @@ using UnityEngine;
 
 public class ProjecTileShooting : MonoBehaviour
 {
-    public void Create(Vector3 spawnPosition, Vector3 targetPosition, int tIndex,int damageAmount)
+    public void Create(Vector3 spawnPosition, GameObject enemy, int tIndex,int damageAmount)
     {
         Transform projectTileTransform = Instantiate(GameAssets.i.bulletArr[tIndex], spawnPosition, Quaternion.identity);
         ProjecTileShooting projectTileShooting = projectTileTransform.GetComponent<ProjecTileShooting>();
-        projectTileShooting.Setup(targetPosition, damageAmount);
+        projectTileShooting.Setup(enemy, damageAmount);
     }
     private int damageAmount;
-    Vector3 targetPosition;
-    private void Setup(Vector3 targetPosition, int damageAmount)
+    private GameObject enemy;
+    private void Setup(GameObject enemy, int damageAmount)
     {
-        this.targetPosition = targetPosition;
+        this.enemy = enemy;
         this.damageAmount = damageAmount;
+    }
+    private void Start()
+    {
+        //enemy = GameObject.FindGameObjectsWithTag("Enemy")[];
+        //enemy = GameAssets.i.enemies[targetPosition];
     }
 
     private void Update()
     {
-            Vector3 moveDir = (targetPosition - transform.position).normalized;
+        if (enemy!= null)
+        {
+            Vector3 moveDir = (enemy.transform.position - transform.position).normalized;
             float moveSpeed = 10f;
             transform.position += moveDir * moveSpeed * Time.deltaTime;
             float angle = UtilsClass.GetAngleFromVectorFloat(moveDir);
             transform.eulerAngles = new Vector3(0, 0, angle);
 
             float destroySelfDistance = 0.1f;
-            if (Vector3.Distance(transform.position, targetPosition) < destroySelfDistance)
+            if (Vector3.Distance(transform.position, enemy.transform.position) < destroySelfDistance)
             {
-                //enemy.Damage(damageAmount);
-                Destroy(gameObject);
+                enemy.GetComponent<EnemyNavigation>().Damage(damageAmount);
+                Destroy(transform.gameObject);
             }
+        }
+        if(enemy == null)
+        {
+            Destroy(transform.gameObject);
+        }
+
     }
 }

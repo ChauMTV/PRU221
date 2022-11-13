@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Button handler.
 /// </summary>
-public class ButtonHandler : MonoBehaviour
+public class ButtonsHandler : MonoBehaviour
 {
 	public AudioClip audioClip;
 

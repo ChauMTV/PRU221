@@ -63,8 +63,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  sDame: 0
-  cDame: 0
-  fDame: 0
-  mDame: 0
+  enemies:
+  - {fileID: 8227048056410774502, guid: 697d768481973c849b3ea261c5de9387, type: 3}
+  - {fileID: 1425158343882510794, guid: 079551491abb1c4428e40c851e5e9391, type: 3}
+  - {fileID: 984615219606203122, guid: 7cc63d80694e472489424401baae88b2, type: 3}
+  - {fileID: 1348055386013386254, guid: 0c9f8cee28eb1394bbf321272abcf85c, type: 3}
+  sDame: 15
+  cDame: 20
+  fDame: 25
+  mDame: 30
   bulletDamage: 0a0000000c0000000f00000014000000

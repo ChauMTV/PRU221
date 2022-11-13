@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// My event type.
 /// </summary>
 [System.Serializable]
-public class MyEvent : UnityEvent<GameObject, string>
+public class MyEvents : UnityEvent<GameObject, string>
 {
 
 }
@@ -15,13 +15,13 @@ public class MyEvent : UnityEvent<GameObject, string>
 /// <summary>
 /// Message system.
 /// </summary>
-public class EventManager : MonoBehaviour
+public class EventManagers : MonoBehaviour
 {
     // Singleton
-    public static EventManager instance;
+    public static EventManagers instance;
 
     // Events list
-    private Dictionary<string, MyEvent> eventDictionary = new Dictionary<string, MyEvent>();
+    private Dictionary<string, MyEvents> eventDictionary = new Dictionary<string, MyEvents>();
 
     /// <summary>
     /// Awake this instance.
@@ -60,21 +60,21 @@ public class EventManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = FindObjectOfType(typeof(EventManager)) as EventManager;
+            instance = FindObjectOfType(typeof(EventManagers)) as EventManagers;
             if (instance == null)
             {
                 Debug.Log("Have no event manager on scene");
                 return;
             }
         }
-        MyEvent thisEvent = null;
+        MyEvents thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
         else
         {
-            thisEvent = new MyEvent();
+            thisEvent = new MyEvents();
             thisEvent.AddListener(listener);
             instance.eventDictionary.Add(eventName, thisEvent);
         }
@@ -91,7 +91,7 @@ public class EventManager : MonoBehaviour
         {
             return;
         }
-        MyEvent thisEvent = null;
+        MyEvents thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
@@ -110,7 +110,7 @@ public class EventManager : MonoBehaviour
         {
             return;
         }
-        MyEvent thisEvent = null;
+        MyEvents thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.Invoke(obj, param);
